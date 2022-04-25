@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Notes from "./Notes";
+import Note from "./Note";
 
 function NotesList() {
     const [notes, setNotes] = useState([]);
@@ -7,17 +7,21 @@ function NotesList() {
     const [description, setDescription] = useState("");
 
     useEffect(() => {
-        fetch("http://localhost:3000/notes")
+        handleGetNotes()
+    }, [])
+
+    const handleGetNotes = () => {
+        return fetch("http://localhost:3000/notes")
             .then((r) => r.json())
             .then((notes) => {
-            setNotes(notes)
-             })
-    }, [])
+                setNotes(notes)
+            })
+    }
     console.log(notes)
 
     const allNotes = notes.map((note) => {
-        return <Notes key={notes.id} notes={notes} setNotes={setNotes} handleDeleteClick={handleDeleteClick}/>
-      });
+        return <Note key={note?.id} note={note} handleDeleteClick={handleDeleteClick}/>
+    });
 
       function handleDeleteNote(deletedNote) {
         const updatedNotes = notes.filter((note) => note.id !== deletedNote.id)
@@ -25,7 +29,7 @@ function NotesList() {
       }
     
       function handleDeleteClick(notes) {
-        fetch(`http://localhost:3001/notes/${notes.id}`, {
+        fetch(`http://localhost:3000/notes/${notes.id}`, {
           method: "DELETE",
         })
           .then((r) => r.json())
@@ -38,7 +42,7 @@ function NotesList() {
           description: description,
           name: name,
         };
-        fetch("http://localhost:3001/notes", {
+        fetch("http://localhost:3000/notes", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -68,5 +72,5 @@ function NotesList() {
          </main>
           );
         }
-        
+
 export default NotesList;
