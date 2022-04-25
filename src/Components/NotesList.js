@@ -4,6 +4,9 @@ import Notes from "./Notes";
 function NotesList() {
     //fetch the data using useEffect hook
     const [notes, setNotes] = useState([]);
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+
     useEffect(() => {
         fetch("http://localhost:3000/notes")
             .then((r) => r.json())
@@ -27,7 +30,7 @@ function NotesList() {
           method: "DELETE",
         })
           .then((r) => r.json())
-          .then(() => handleDeleteListing(listing))
+          .then(() => handleDeleteNote(notes))
             // 1. find the listing in all listings (based on listing.id) - .filter
             // 2. remove it from all listings by setting state
       }
@@ -36,7 +39,7 @@ function NotesList() {
     <main>
          <ul className="notes">
             {allNotes}
-         <form onSubmit={handleSubmit}>
+         <form>
               <label htmlFor="name-input">Name:</label>
               <input id="name-input" type="text" value={name}/>
              <label htmlFor="description-input">Description:</label>
