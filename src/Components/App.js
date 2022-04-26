@@ -3,7 +3,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import NavBar from "./NavBar";
-import NotesList from "./NotesList";
+import NoteList from "./NoteList";
 import ReminderList from "./ReminderList";
 import Home from "./Home";
 
@@ -16,11 +16,11 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path="/reminderslist">
-          <Reminders />
+        <Route exact path="/reminderlist">
+          <ReminderList/>
         </Route>
-        <Route exact path="noteslist">
-          <Notes />
+        <Route exact path="/notelist">
+          <NoteList />
         </Route>
       </Switch>
     </div>
