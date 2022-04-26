@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Note from "./Note";
 
-function NotesList() {
+function NoteList() {
     const [notes, setNotes] = useState([]);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -20,7 +20,7 @@ function NotesList() {
     console.log(notes)
 
     const allNotes = notes.map((note) => {
-        return <Note key={note?.id} note={note} handleDeleteClick={handleDeleteClick}/>
+        return <Note key={note.id} note={note} handleDeleteClick={handleDeleteClick}/>
     });
 
       function handleDeleteNote(deletedNote) {
@@ -59,7 +59,7 @@ function NotesList() {
 
     return (
         <main>
-            <ul className="cards">
+            <ul className="notesClass">
             {allNotes}
              <form onSubmit={handleSubmit}>
                 <label htmlFor="name-input">Name:</label>
@@ -73,4 +73,4 @@ function NotesList() {
           );
         }
 
-export default NotesList;
+export default NoteList;
