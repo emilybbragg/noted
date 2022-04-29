@@ -3,67 +3,62 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
 
+function Home() {
+  const [calReminders, setCalReminders] = useState([])
+  const [selectedDateRem, setSelectedDateRem] = useState([])
+  const [date, setDate] = useState(new Date())
+	const [greet, setGreet] = useState('Evening')
 
-function Home () {
-    //const current = new Date();
-    //console.log(current);
-    //return current.toLocaleTimeString('en-US');
-    const [date, setDate] = useState(new Date())
-    const changeDate = (e) => {
-      setDate(e)
-    }
-
-    const [greet, setGreet] = useState('Evening')
-    const findGreet = () => {
-        const hours = new Date().getHours();
-        if(hours === 0 || hours < 12) return setGreet('Morning');
-        if(hours === 1 || hours < 17) return setGreet('Afternoon')
-    }
-    useEffect(() => {
-        findGreet();
-    }, [])
-
-    return (
-      <div>
-      <div>{`Good ${greet}!`}</div>
-        <Calendar 
-        value={date}
-        onChange={changeDate}
-        />
-      <p>Current selected date is <b>{moment(date).format('MMMM Do YYYY')}</b></p>
-      </div>
-    )
+  const changeDate = (e) => {
+    setDate(e)
   }
 
+  const getCalReminders = () => {
+  	return fetch("http://localhost:3000/reminders")
+      .then((r) => r.json())
+      .then((calReminders) => {
+        setCalReminders(calReminders)
+      })
+  }
+
+  useEffect(() => {
+    if (date && calReminders.length > 0) {
+    	const updatedReminders = calReminders.filter((reminder) => {
+        const dateObj = new Date(reminder.date)
+        const dateString = dateObj.toLocaleDateString('en-US')
+        const selectedDate = date.toLocaleDateString('en-US')
+          return dateString === selectedDate
+      })
+      setSelectedDateRem(updatedReminders)
+    }
+  }, [date, calReminders])
+
+  const findGreet = () => {
+    const hours = new Date().getHours();
+    if (hours === 0 || hours < 12) return setGreet('Morning');
+    if (hours === 1 || hours < 17) return setGreet('Afternoon')
+  }
+
+  useEffect(() => {
+  	findGreet();
+    getCalReminders()
+  }, [])
+
+  return (
+    <>
+      <div className="greeting">{`Good ${greet}! Welcome to Noted.`}</div>
+      <div className="homeReminderContainer">
+        <div className="homeRemTitle">Today's Reminders:</div>
+        	<ul className="homeReminderList">{selectedDateRem.map((reminder) => {
+        		return <li className="homeRemItems" key={reminder.id}>{reminder.name}</li>
+        	})}</ul>
+      </div>
+      <div className="calendar">
+      	<Calendar value={date} onChange={changeDate}/>
+      	<p className="selectedDay"> Current selected date is <b>{moment(date).format('MMMM Do YYYY')}</b></p>
+      </div>
+    </>
+  )
+}
+
 export default Home;
-
-
-
- /*
-    const getGreetingTime = (currentTime) => {
-        if (!currentTime || !currentTime.isValid()) {
-          return "Hello";
-        }
-
-        const splitAfternoon = 12; // 24hr time to split the afternoon
-        const splitEvening = 17; // 24hr time to split the evening
-        const currentHour = parseFloat(currentTime.format("HH"));
-      
-        if (currentHour >= splitAfternoon && currentHour <= splitEvening) {
-          // Between 12 PM and 5PM
-          return "Good afternoon";
-        } else if (currentHour >= splitEvening) {
-          // Between 5PM and Midnight
-          return "Good evening";
-        }
-        // Between dawn and noon
-        return "Good morning";
-      };
-      
-      return (
-          <main>
-            {getGreetingTime}
-            <Calendar />
-          </main>
-      )
-      */
