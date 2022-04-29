@@ -1,36 +1,17 @@
 {
-    "todos": [
-        {
-            "id": 1,
-            "name": "Phase 2 Project",
-            "importance": "high"
-        },
-        {
-            "id": 2,
-            "name": "Blog post",
-            "importance": "medium"
-        },
-        {
-            "id": 3,
-            "name": "Phase 3",
-            "importance": "low"}
-    ],
-
-    "notes": [
-        {
-            "id": 1,
-            "name": "Phase 2 Project",
-            "description": "Schedule 1:1"
-        },
-        {
-            "id": 2,
-            "name": "Blog Post",
-            "description": "Idea for blog post"
-        },
-        {
-            "id": 3,
-            "name": "Phase 3",
-            "description": "Create schedule"}
-    ]
+  "reminders": [
+    {
+      "importance": "",
+      "name": "Pack for Vacation",
+      "date": "2022-04-29T05:32:50.545Z",
+      "id": 7
+    }
+  ],
+  "notes": [
+    {
+      "description": "",
+      "name": "New",
+      "id": 5
+    }
+  ]
 }
-
