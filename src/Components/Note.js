@@ -1,16 +1,17 @@
 import React from "react";
 
 function Note( {note, handleDeleteClick} ) {
-    
-    return (
-        <li className="card">
-          <div className="details">
-            <strong>{note.name}</strong>
-            <span>Note: {note.desciption}</span>
-            <button className="emoji-button delete" onClick={() => handleDeleteClick(note)}>🗑</button>
-          </div>
-        </li>
-      );
-    }
+
+  return (
+    <div className="noteItemContainer">
+    <li className="noteItems">
+        <strong>{note.name}</strong>
+        <br></br>
+        <span>{note.description}</span>
+        <button className="noteDelete" class="gg-trash" onClick={() => handleDeleteClick(note)}></button>
+    </li>
+    </div>
+  );
+}
 
 export default Note;
