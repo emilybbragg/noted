@@ -1,12 +1,10 @@
-//import logo from './logo.svg';
-//import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import NavBar from "./NavBar";
 import NoteList from "./NoteList";
 import ReminderList from "./ReminderList";
 import Home from "./Home";
-
 
 function App() {
   return (
