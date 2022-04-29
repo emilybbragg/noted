@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function Reminder( {reminder, handleReminderDeleteClick} ) {
+  const [dateToDisplay, setDateToDisplay] = useState("")
 
-
+  useEffect(() => {
+    console.log(reminder)
+    const dateObj = new Date(reminder.date)
+    setDateToDisplay(dateObj.toLocaleString('en-US'))
+  }, [reminder])
+    
     return (
-        <li className="card">
-          <div className="details">
-            <strong>{reminder.name}</strong>
-            <span>Importance: {reminder.importance}</span>
-            <span>Date: {reminder.date}</span>
-            <button className="emoji-button delete" onClick={() => handleReminderDeleteClick(reminder)}>🗑</button>
-          </div>
-        </li>
-      );
-    }
+      <div className="reminderItemContainer">
+      <li className="reminderItems">
+          <strong>{reminder.name}</strong>
+          <br></br>
+          <span>Importance: {reminder.importance}</span>
+          <br></br>
+          <span>Date: {dateToDisplay}</span>
+          <br></br>
+          <button className="deleteButton" class="gg-trash" onClick={() => handleReminderDeleteClick(reminder)}></button>
+      </li>
+      </div>
+    );
+}
 
 export default Reminder;
+
