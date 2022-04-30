@@ -11,6 +11,6 @@ On the Notes page, users can view their current notes, as well as add new ones. 
 If interested, you can read more about this project here.
 
 ### Technologies Used
-React
-CSS
-Vanilla JavaScript
+- React
+- JavaScript
+- CSS
