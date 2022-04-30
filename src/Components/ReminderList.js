@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Reminder from "./Reminder";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Dropdown from 'react-bootstrap/Dropdown';
 
 function ReminderList() {
     const [reminders, setReminders] = useState([]);
@@ -59,11 +58,6 @@ function ReminderList() {
           setReminders(allRemindersWithNew)
         })
     }
-    
-    const handleChangeImportance = (event) => {
-      console.log("CHANGED")
-      console.log(event)
-    }
 
   return (
     <main>
@@ -74,40 +68,25 @@ function ReminderList() {
       <div className="reminderSubmission">
         <div className="reminderFormTitle">Add A New Reminder:</div>
           <form className="reminderForm" onSubmit={handleReminderSubmit}>
-        <div className="nameInput">
-          <label htmlFor="name-input">Reminder:</label>
-          <input id="name-input" type="text" value={reminderName} onChange={(e) => setReminderName(e.target.value)}/>
-        </div>
-        <div className="dateInput">
-          <label className="dateLabel" htmlFor="date-input">Date:</label>
-            <DatePicker showTimeSelect dateFormat="MMMM d, yyyy h:mmaa" selected={reminderDate} onChange={reminderDate => reminderSetDate(reminderDate)} placeholderText="Select Date"/>
-        </div>
-      <select name="importance" id="importance">
-        <option value="" disabled selected hidden>Importance</option>
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
-      </select>
-
-<input type="submit" className="submitButton"/>
+            <div className="nameInput">
+              <label htmlFor="name-input">Reminder:</label>
+              <input id="name-input" type="text" value={reminderName} onChange={(e) => setReminderName(e.target.value)}/>
+            </div>
+            <div className="dateInput">
+             <label className="dateLabel" htmlFor="date-input">Date:</label>
+             <DatePicker showTimeSelect dateFormat="MMMM d, yyyy h:mmaa" selected={reminderDate} onChange={reminderDate => reminderSetDate(reminderDate)} placeholderText="Select Date"/>
+            </div>
+            <select name="importance" id="importance" onChange={(e) => setReminderImportance(e.target.value)}>
+             <option value="" disabled selected hidden>Importance</option>
+             <option value="Low">Low</option>
+             <option value="Medium">Medium</option>
+             <option value="High">High</option>
+            </select>
+            <input type="submit" className="submitButton"/>
           </form>
-         </div>
-      </main>
+      </div>
+    </main>
   );
 }
 
 export default ReminderList;
-
-/*
-  <Dropdown onToggle={(e) => handleChangeImportance(e)} className="dropMenu">
-          <Dropdown.Toggle variant="light" id="dropdown-basic">
-            Importance
-          </Dropdown.Toggle>
-          <Dropdown.Menu id="dropMenu">
-            <Dropdown.Item href="High">High</Dropdown.Item>
-            <Dropdown.Item href="Medium">Medium</Dropdown.Item>
-            <Dropdown.Item href="Low">Low</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>         
-        <input type="s
-*/
