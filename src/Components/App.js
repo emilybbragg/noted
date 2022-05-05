@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import NavBar from "./NavBar";
@@ -15,7 +14,7 @@ function App() {
           <Home />
         </Route>
         <Route exact path="/reminderlist">
-          <ReminderList/>
+          <ReminderList />
         </Route>
         <Route exact path="/notelist">
           <NoteList />
