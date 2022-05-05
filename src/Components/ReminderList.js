@@ -6,23 +6,23 @@ import "react-datepicker/dist/react-datepicker.css";
 function ReminderList() {
     const [reminders, setReminders] = useState([]);
     const [reminderName, setReminderName] = useState("");
-    const [reminderImportance, setReminderImportance] = useState("");
-    const [reminderDate, reminderSetDate] = useState(new Date());
+    const [reminderImportance, setReminderImportance] = useState("Importance");
+    const [reminderDate, setReminderDate] = useState(new Date());
 
     useEffect(() => {
         handleGetReminders()
     }, [])
 
     const handleGetReminders = () => {
-        return fetch("http://localhost:3000/reminders")
-            .then((r) => r.json())
-            .then((reminders) => {
-                setReminders(reminders)
-            })
+      return fetch("http://localhost:3000/reminders")
+      .then((r) => r.json())
+      .then((reminders) => {
+        setReminders(reminders)
+      })
     }
 
     const allReminders = reminders.map((reminder) => {
-        return <Reminder key={reminder.id} reminder={reminder} handleReminderDeleteClick={handleReminderDeleteClick}/>
+      return <Reminder key={reminder.id} reminder={reminder} handleReminderDeleteClick={handleReminderDeleteClick}/>
     });
 
     function handleDeleteReminder(deletedReminder) {
@@ -30,12 +30,12 @@ function ReminderList() {
       setReminders(updatedReminders)
     }
     
-    function handleReminderDeleteClick(reminders) {
-      fetch(`http://localhost:3000/reminders/${reminders.id}`, {
+    function handleReminderDeleteClick(reminder) {
+      fetch(`http://localhost:3000/reminders/${reminder.id}`, {
         method: "DELETE",
       })
         .then((r) => r.json())
-        .then(() => handleDeleteReminder(reminders))
+        .then(() => handleDeleteReminder(reminder))
     }
 
     function handleReminderSubmit(e) {
@@ -54,8 +54,11 @@ function ReminderList() {
       })
         .then((r) => r.json())
         .then((newReminders) => {
-        const allRemindersWithNew = [...reminders, newReminders]
+          const allRemindersWithNew = [...reminders, newReminders]
           setReminders(allRemindersWithNew)
+          setReminderName("");
+          setReminderImportance("Importance");
+          setReminderDate(new Date());
         })
     }
 
@@ -70,14 +73,14 @@ function ReminderList() {
           <form className="reminderForm" onSubmit={handleReminderSubmit}>
             <div className="nameInput">
               <label htmlFor="name-input">Reminder:</label>
-              <input id="name-input" type="text" value={reminderName} onChange={(e) => setReminderName(e.target.value)}/>
+              <input id="name-input" type="text" value={reminderName} onChange={(e) => setReminderName(e.target.value)} />
             </div>
             <div className="dateInput">
              <label className="dateLabel" htmlFor="date-input">Date:</label>
-             <DatePicker showTimeSelect dateFormat="MMMM d, yyyy h:mmaa" selected={reminderDate} onChange={reminderDate => reminderSetDate(reminderDate)} placeholderText="Select Date"/>
+             <DatePicker showTimeSelect dateFormat="MMMM d, yyyy h:mmaa" selected={reminderDate} onChange={reminderDate => setReminderDate(reminderDate)} placeholderText="Select Date"/>
             </div>
-            <select name="importance" id="importance" onChange={(e) => setReminderImportance(e.target.value)}>
-             <option value="" disabled selected hidden>Importance</option>
+            <select name="importance" id="importance" onChange={(e) => setReminderImportance(e.target.value)} value={reminderImportance}>
+             <option value="Importance" disabled>Importance</option>
              <option value="Low">Low</option>
              <option value="Medium">Medium</option>
              <option value="High">High</option>
@@ -90,3 +93,4 @@ function ReminderList() {
 }
 
 export default ReminderList;
+
