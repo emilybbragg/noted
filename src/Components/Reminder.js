@@ -4,7 +4,6 @@ function Reminder( {reminder, handleReminderDeleteClick} ) {
   const [dateToDisplay, setDateToDisplay] = useState("")
 
   useEffect(() => {
-    console.log(reminder)
     const dateObj = new Date(reminder.date)
     setDateToDisplay(dateObj.toLocaleString('en-US'))
   }, [reminder])
@@ -18,11 +17,12 @@ function Reminder( {reminder, handleReminderDeleteClick} ) {
           <br></br>
           <span>Date: {dateToDisplay}</span>
           <br></br>
-          <button className="deleteButton" class="gg-trash" onClick={() => handleReminderDeleteClick(reminder)}></button>
+          <button className="deleteButton gg-trash"
+            onClick={() => handleReminderDeleteClick(reminder)}>
+          </button>
       </li>
       </div>
     );
 }
 
 export default Reminder;
-
