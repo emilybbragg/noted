@@ -27,7 +27,7 @@ function Home() {
         const dateObj = new Date(reminder.date)
         const dateString = dateObj.toLocaleDateString('en-US')
         const selectedDate = date.toLocaleDateString('en-US')
-          return dateString === selectedDate
+        return dateString === selectedDate
       })
       setSelectedDateRem(updatedReminders)
     }
@@ -35,8 +35,12 @@ function Home() {
 
   const findGreet = () => {
     const hours = new Date().getHours();
-    if (hours === 0 || hours < 12) return setGreet('Morning');
-    if (hours === 1 || hours < 17) return setGreet('Afternoon')
+    
+    if (hours === 0 || hours < 12) { 
+      setGreet('Morning')
+    } else if (hours === 1 || hours < 17) { 
+      setGreet('Afternoon')
+    }
   }
 
   useEffect(() => {
