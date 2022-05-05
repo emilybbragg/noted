@@ -12,5 +12,4 @@ If interested, you can read more about this project here.
 
 ### Technologies Used
 - React
-- JavaScript
 - CSS
