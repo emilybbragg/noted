@@ -27,12 +27,12 @@ function NoteList() {
     setNotes(updatedNotes)
   }
     
-  function handleDeleteClick(notes) {
-    fetch(`http://localhost:3000/notes/${notes.id}`, {
+  function handleDeleteClick(note) {
+    fetch(`http://localhost:3000/notes/${note.id}`, {
       method: "DELETE",
     })
       .then((r) => r.json())
-      .then(() => handleDeleteNote(notes))
+      .then(() => handleDeleteNote(note))
   }
 
   function handleSubmit(e) {
@@ -52,6 +52,8 @@ function NoteList() {
         .then((newNotes) => {
           const allNotesWithNew = [...notes, newNotes]
           setNotes(allNotesWithNew)
+          setName("");
+          setDescription("");
         })
   }
 
@@ -61,20 +63,20 @@ function NoteList() {
       <ul className="notesList">
         {allNotes}
       </ul>
-        <div className="noteSubmission">
+      <div className="noteSubmission">
         <div className="noteFormTitle">Add A New Note:</div>
         <form className="noteForm" onSubmit={handleSubmit}>
-        <div className="noteNameInput">
-          <label htmlFor="name-input">Name:</label>
+          <div className="noteNameInput">
+            <label htmlFor="name-input">Name:</label>
             <input id="name-input" type="text" value={name} onChange={(e) => setName(e.target.value)}/>
           </div>
           <div className="noteDescription">
-          <label htmlFor="description-input">Description:</label>
+            <label htmlFor="description-input">Description:</label>
             <textarea id="description-input" type="text" value={description} onChange={(e) => setDescription(e.target.value)}/>
-            </div>
-            <input type="submit" className="noteSubmit"/>
+          </div>
+          <input type="submit" className="noteSubmit"/>
         </form>
-        </div>
+      </div>
     </main>
   );
 }
