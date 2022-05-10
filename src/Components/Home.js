@@ -9,17 +9,10 @@ function Home() {
   const [date, setDate] = useState(new Date())
 	const [greet, setGreet] = useState('Evening')
 
-  const changeDate = (e) => {
-    setDate(e)
-  }
-
-  const getCalReminders = () => {
-  	return fetch("http://localhost:3000/reminders")
-      .then((r) => r.json())
-      .then((calReminders) => {
-        setCalReminders(calReminders)
-      })
-  }
+  useEffect(() => {
+  	findGreet();
+    getCalReminders()
+  }, [])
 
   useEffect(() => {
     if (date && calReminders.length > 0) {
@@ -35,7 +28,7 @@ function Home() {
 
   const findGreet = () => {
     const hours = new Date().getHours();
-    
+
     if (hours === 0 || hours < 12) { 
       setGreet('Morning')
     } else if (hours === 1 || hours < 17) { 
@@ -43,10 +36,17 @@ function Home() {
     }
   }
 
-  useEffect(() => {
-  	findGreet();
-    getCalReminders()
-  }, [])
+  const changeDate = (e) => {
+    setDate(e)
+  }
+
+  const getCalReminders = () => {
+  	return fetch("http://localhost:3000/reminders")
+      .then((r) => r.json())
+      .then((calReminders) => {
+        setCalReminders(calReminders)
+      })
+  }
 
   return (
     <>
