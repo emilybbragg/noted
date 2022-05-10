@@ -1,17 +1,34 @@
 {
   "reminders": [
     {
-      "importance": "",
+      "importance": "High",
+      "name": "Write Blog Post",
+      "date": "2022-05-05T21:00:00.000Z",
+      "id": 1
+    },
+    {
+      "importance": "Medium",
+      "name": "Go to Gym",
+      "date": "2022-05-06T13:00:00.000Z",
+      "id": 2
+    },
+    {
+      "importance": "Low",
       "name": "Pack for Vacation",
-      "date": "2022-04-29T05:32:50.545Z",
-      "id": 7
+      "date": "2022-05-07T19:00:00.000Z",
+      "id": 3
     }
   ],
   "notes": [
     {
-      "description": "",
-      "name": "New",
-      "id": 5
+      "description": "Write blog post about use of props in project",
+      "name": "Blog Post Idea",
+      "id": 1
+    },
+    {
+      "description": "Call vet to order more cat food (330-111-2222)",
+      "name": "Call Vet",
+      "id": 2
     }
   ]
 }

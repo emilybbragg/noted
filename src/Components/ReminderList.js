@@ -20,15 +20,6 @@ function ReminderList() {
         setReminders(reminders)
       })
     }
-
-    const allReminders = reminders.map((reminder) => {
-      return <Reminder key={reminder.id} reminder={reminder} handleReminderDeleteClick={handleReminderDeleteClick}/>
-    });
-
-    function handleDeleteReminder(deletedReminder) {
-      const updatedReminders = reminders.filter((reminder) => reminder.id !== deletedReminder.id)
-      setReminders(updatedReminders)
-    }
     
     function handleReminderDeleteClick(reminder) {
       fetch(`http://localhost:3000/reminders/${reminder.id}`, {
@@ -53,14 +44,23 @@ function ReminderList() {
           body: JSON.stringify(reminderData),
       })
         .then((r) => r.json())
-        .then((newReminders) => {
-          const allRemindersWithNew = [...reminders, newReminders]
-          setReminders(allRemindersWithNew)
+        .then((newReminder) => {
+          const allRemindersWithNew = [...reminders, newReminder]
+          setReminders(allRemindersWithNew);
           setReminderName("");
           setReminderImportance("Importance");
           setReminderDate(new Date());
         })
     }
+
+    function handleDeleteReminder(deletedReminder) {
+      const updatedReminders = reminders.filter((reminder) => reminder.id !== deletedReminder.id)
+      setReminders(updatedReminders)
+    }
+
+    const allReminders = reminders.map((reminder) => {
+      return <Reminder key={reminder.id} reminder={reminder} handleReminderDeleteClick={handleReminderDeleteClick}/>
+    });
 
   return (
     <main>
@@ -93,4 +93,3 @@ function ReminderList() {
 }
 
 export default ReminderList;
-

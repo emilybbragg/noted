@@ -17,15 +17,6 @@ function NoteList() {
         setNotes(notes)
       })
   }
-
-  const allNotes = notes.map((note) => {
-    return <Note key={note.id} note={note} handleDeleteClick={handleDeleteClick}/>
-  });
-
-  function handleDeleteNote(deletedNote) {
-    const updatedNotes = notes.filter((note) => note.id !== deletedNote.id)
-    setNotes(updatedNotes)
-  }
     
   function handleDeleteClick(note) {
     fetch(`http://localhost:3000/notes/${note.id}`, {
@@ -56,6 +47,15 @@ function NoteList() {
           setDescription("");
         })
   }
+
+  function handleDeleteNote(deletedNote) {
+    const updatedNotes = notes.filter((note) => note.id !== deletedNote.id)
+    setNotes(updatedNotes)
+  }
+  
+  const allNotes = notes.map((note) => {
+    return <Note key={note.id} note={note} handleDeleteClick={handleDeleteClick}/>
+  });
 
   return (
     <main>
